@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Registration Form</title>
+
+  <!-- style for the page -->
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+
+    #registrationForm{
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 0 20px 0 0;
+    }
+    label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 20px;
+    }
+
+
+    .error-message {
+      color: red;
+    }
+    .btn{
+        padding: 12px 28px;
+    }
+
+    footer{
+        text-align: center;
+        padding: 20px;
+    }
+  </style>
+
+</head>
+<body>
+
+    <!-- Form -->
+    <form id="registrationForm" onsubmit="validate(e)">
+
+        <h2>Registration Form</h2>
+
+        <label for="firstName">First Name:</label>
+        <span id="firstNameError" class="error-message"></span>
+        <input type="text" id="firstName" name="firstName">
+
+        <label for="lastName">Last Name:</label>
+        <span id="lastNameError" class="error-message"></span>
+        <input type="text" id="lastName" name="lastName">
+
+
+        <label for="email">Email:</label>
+        <span id="emailError" class="error-message"></span>
+        <input type="email" id="email" name="email">
+
+        <label for="password">Password:</label>
+        <span id="passwordError" class="error-message"></span>
+        <input type="password" id="password" name="password">
+
+        <label for="confirmPassword">Confirm Password:</label>
+        <span id="confirmPasswordError" class="error-message"></span>
+        <input type="password" id="confirmPassword" name="confirmPassword">
+
+        <br>
+        <!-- <input type="submit" value="Submit"> -->
+        <button type="submit" class="btn">Register</button>
+
+
+    </form>
+
+
+    <!-- Developer -->
+    <footer>
+        <p>
+            Developed by: 
+            <a href="https://bit.ly/abdulsalamamtech">
+                Abdulsalam Amtech
+            </a>
+        </p>
+    </footer>
+
+
+    <!-- Javascript -->
+    <script>
+
+    // Get the id of the form
+    myForm = document.getElementById("registrationForm")
+
+    // Add an event listener for when the form is submitted
+    myForm.addEventListener("submit", function(event) {
+
+        // Prevent the form from being submitted
+        event.preventDefault();
+        alert("form submitted");
+        // Your custom validation or processing logic here
+        // For example, you can check the form fields for errors
+        // and show error messages to the user.
+        // for simplicity we make a call to a function
+
+        // this return true or false
+        let validated = validateForm();
+
+        // If everything is valid, you can perform any other action here,
+        // such as submitting the form data via AJAX or any other custom behavior.
+        if(validated){
+            alert("Validation successfull");
+        }else{
+            alert("They was an error...");
+        }
+
+    });
+
+
+
+    //    This is all where the validation take place
+    function validateForm() {
+
+        var firstName = document.getElementById("firstName").value;
+        var lastName = document.getElementById("lastName").value;
+        var email = document.getElementById("email").value;
+        var password = document.getElementById("password").value;
+        var confirmPassword = document.getElementById("confirmPassword").value;
+
+    //  This is going to return true if they is no error
+    var formIsValid = true;
+
+        // Clear previous error messages
+    //   var errorMessages = document.getElementsByClassName("error-message");
+    //   for (var i = 0; i < errorMessages.length; i++) {
+    //     errorMessages[i].textContent = "";
+    //   }
+
+        // Validate First Name
+        if (firstName === "") {
+        document.getElementById("firstNameError").textContent 
+        = "First Name is required.";
+        formIsValid = false;
+        }
+
+        // Validate Last Name
+        if (lastName === "") {
+        document.getElementById("lastNameError").textContent 
+        = "Last Name is required.";
+        formIsValid = false;
+        }
+
+        // Validate Email
+        if (email === "") {
+        document.getElementById("emailError").textContent 
+        = "Email is required.";
+        formIsValid = false;
+        } else if (!isValidEmail(email)) {
+        document.getElementById("emailError").textContent 
+        = "Invalid email format.";
+        formIsValid = false;
+        }
+
+        // This function check if the email is valid
+        function isValidEmail(email) {
+            var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+
+
+
+        // Validate Password
+        if (password === "") {
+        document.getElementById("passwordError").textContent 
+        = "Password is required.";
+        formIsValid = false;
+        }
+
+        // Validate Confirm Password
+        if (confirmPassword === "") {
+        document.getElementById("confirmPasswordError").textContent 
+        = "Please confirm your password.";
+        formIsValid = false;
+        } else if (confirmPassword !== password) {
+        document.getElementById("confirmPasswordError").textContent 
+        = "Passwords do not match.";
+        formIsValid = false;
+        }
+
+        return formIsValid;
+
+    }
+
+    </script>
+
+
+</body>
+</html>
